@@ -12,7 +12,7 @@ module AbstractController
   module Rendering
     def render_to_body_with_haml(options = {})
       if rendered = render_to_body_without_haml(options)
-        rendered.gsub('<haml:newline/>', "\n").html_safe
+        rendered.gsub('<haml:newline/>', "\n").html_safe rescue rendered
       end
     end
     alias_method_chain :render_to_body, :haml
@@ -24,7 +24,7 @@ module ActionView
   class Renderer
     def render_template_with_haml(context, options)
       if rendered = render_template_without_haml(context, options)
-        rendered.gsub('<haml:newline/>', "\n").html_safe
+        rendered.gsub('<haml:newline/>', "\n").html_safe rescue rendered
       end
     end
     alias_method_chain :render_template, :haml
